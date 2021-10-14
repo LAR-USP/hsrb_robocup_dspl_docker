@@ -120,45 +120,47 @@ def main():
             curr_t_a += 1
 
     if not found_obj:
-        print("Object not found")
+        print("Object not found. Selecting random object")
+        objeto = list(result.keys())[0]
+        print("Object selected: " + objeto)
+        obj = result[objeto][0]
+        obj_img_center = get_centroid((obj[0], obj[1]), (obj[2], obj[3]))
+        x, y, z = imgcoords2world(obj_img_center[0], obj_img_center[1], rgbd)
+    
+
+    objt = ObjectTracker()
+    objt.set_obj_coords(x, y, z)
+
+    trans = get_relative_coordinate("odom", "objeto")
+    x = trans.translation.x
+    y = trans.translation.y
+    z = trans.translation.z
+
+    target = np.array([x, y, z])
+    if z > 0.7:
+        print("Usando waypoint cima!")
+        starting_wp = wp_estante_cima
     else:
-    #     x = np.mean(xs)
-    #     y = np.mean(ys)
-    #     z = np.mean(zs)
+        print("Usando waypoint baixo!")
+        starting_wp = wp_estante_baixo
+    wp1 = target + np.array([0, -0.1, 0.075])
+    wp2 = target + np.array([0, 0, 0.075])    
 
-        objt = ObjectTracker()
-        objt.set_obj_coords(x, y, z)
+    move_wholebody_ik(starting_wp[0], starting_wp[1], starting_wp[2], -90, 0, -90)    
+    move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
+    move_hand(1)
+    move_wholebody_ik(x, y, z, -90, 0, -90)
+    move_hand(0)
+    move_wholebody_ik(wp2[0], wp2[1], wp2[2], -90, 0, -90)
+    move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
+    move_wholebody_ik(starting_wp[0], starting_wp[1], starting_wp[2], -90, 0, -90)
 
-        trans = get_relative_coordinate("odom", "objeto")
-        x = trans.translation.x
-        y = trans.translation.y
-        z = trans.translation.z
-
-        target = np.array([x, y, z])
-        if z > 0.7:
-            print("Usando waypoint cima!")
-            starting_wp = wp_estante_cima
-        else:
-            print("Usando waypoint baixo!")
-            starting_wp = wp_estante_baixo
-        wp1 = target + np.array([0, -0.5, 0.075])
-        wp2 = target + np.array([0, 0, 0.075])    
-
-        move_wholebody_ik(starting_wp[0], starting_wp[1], starting_wp[2], -90, 0, -90)    
-        move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
-        move_hand(1)
-        move_wholebody_ik(x, y, z, -90, 0, -90)
-        move_hand(0)
-        move_wholebody_ik(wp2[0], wp2[1], wp2[2], -90, 0, -90)
-        move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
-        move_wholebody_ik(starting_wp[0], starting_wp[1], starting_wp[2], -90, 0, -90)
-
-        move_arm_init()
-        move_to_location(pessoa)
-        move_arm_neutral()
-        move_hand(1)
-        move_hand(0)
-        move_arm_init()
+    move_arm_init()
+    move_to_location(pessoa)
+    move_arm_neutral()
+    move_hand(1)
+    move_hand(0)
+    move_arm_init()
 
 if __name__ == "__main__":
     main()
