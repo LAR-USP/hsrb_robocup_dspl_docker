@@ -4,7 +4,7 @@
   <!-- ******* SEED ********* -->
   <!-- <arg name="seed" default="0" /> -->
   <!-- <arg name="seed" default="42" /> -->
-  <arg name="seed" default="4" />
+  <arg name="seed" default="535" />
   <!-- ********************** -->
   <arg name="namespace" default="hsrb"/>
   <arg name="debug" default="false"/>
@@ -25,7 +25,7 @@
   <arg name="with_handle" default="true" />
   <arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
   <arg name="per_category" default="6" />
-  <arg name="obstacles" default="0" />
+  <arg name="obstacles" default="4" />
   <arg name="per_row" default="6" />
   <arg name="camera_controller" default="false" />
 

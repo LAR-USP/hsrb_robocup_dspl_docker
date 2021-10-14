@@ -28,8 +28,8 @@ locations = {
 
 def move_to_location(loc):
     move_arm_init()
-#     move_head_tilt(0)
-    move_head_tilt(-1.3)
+    move_head_tilt(0)
+    #move_head_tilt(-1.3)
     x, y, yaw = locations[loc]
     move_base_goal(x, y, yaw)
 
