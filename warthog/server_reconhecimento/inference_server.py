@@ -29,7 +29,8 @@ valid_objects = [
         "lemon",
         "peach",
         "pear",
-        "orange"
+        "orange",
+        "plum"
 ]
 
 @app.post("/detect_objs")
