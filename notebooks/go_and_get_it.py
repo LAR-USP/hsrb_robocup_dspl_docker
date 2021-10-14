@@ -23,7 +23,7 @@ locations = {
     'delivery_area': [0.643, 3.527, 180],
     'person left': [0.547, 2.892, 180],
     'person right': [0.547, 3.851, 180],
-    'door': [2.52, 1.87, 90]
+    'door': [2.52, 1.17, 90]
 }
 
 def move_to_location(loc):
@@ -85,8 +85,8 @@ class ObjectTracker():
 def main():
     rospy.init_node("recognition")    
 
-    wp_estante_cima = [2.35, 4.3, 0.92]
-    wp_estante_baixo = [2.35, 4.3, 0.62]
+    wp_estante_cima = [2.22, 4.3, 0.92]
+    wp_estante_baixo = [2.22, 4.3, 0.62]
 
     whole_body.set_workspace([-1.0, 1.0, -0.3, 0.3])
     tilt_angles = [-0.4, -0.35, -0.3]

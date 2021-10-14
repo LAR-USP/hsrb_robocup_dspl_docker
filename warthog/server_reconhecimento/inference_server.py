@@ -8,6 +8,9 @@ app = Flask(__name__)
 # model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model = torch.hub.load('ultralytics/yolov5', 'custom', path="best.pt")
 
+model.conf = 0.6
+model.iou = 0.6
+
 valid_objects = [
         "master_chef_can",
         "cracker_box",

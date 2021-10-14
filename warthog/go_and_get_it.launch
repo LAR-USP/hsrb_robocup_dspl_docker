@@ -4,7 +4,7 @@
   <!-- ******* SEED ********* -->
   <!-- <arg name="seed" default="0" /> -->
   <!-- <arg name="seed" default="42" /> -->
-  <arg name="seed" default="2" />
+  <arg name="seed" default="3" />
   <!-- ********************** -->
   <arg name="namespace" default="hsrb"/>
   <arg name="debug" default="false"/>
