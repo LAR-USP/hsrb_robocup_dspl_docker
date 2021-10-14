@@ -48,6 +48,8 @@ services:
       - xserver
     depends_on:
       - xserver
+    volumes:
+        - ./warthog/go_and_get_it.launch:/opt/ros/melodic/share/hsrb_wrs_gazebo_launch/launch/wrs_practice0_easy_tmc.launch
   workspace:
     # env_file:
     #   - .env
