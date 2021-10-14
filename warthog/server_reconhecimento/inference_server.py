@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import base64
 import numpy as np
 import cv2
+import pdb
 import torch
 
 app = Flask(__name__)
@@ -42,16 +43,18 @@ def classify():
         img = img.reshape((h, w, c))
 
         results = model(img)
-        object_names = [model.names[int(result[5])] for result in results.pred[0]]
+        results.pred = [[p for p in results.pred[0] if model.names[int(p[5])] in valid_objects]]
+        object_names = [model.names[int(result[5])]
+                                for result in results.pred[0]]
         print(object_names)
         obj_pos = {}
         result_list = results.pred[0].tolist()
         for name, result in zip(object_names, result_list):
-            if name in valid_objects:
-                if name not in obj_pos:
-                    obj_pos[name] = [result[:-1]]
-                else:
-                    obj_pos[name].append(result[:-1])
+            # if name in valid_objects:
+            if name not in obj_pos:
+                obj_pos[name] = [result[:-1]]
+            else:
+                obj_pos[name].append(result[:-1])
 
         results.show()
 
