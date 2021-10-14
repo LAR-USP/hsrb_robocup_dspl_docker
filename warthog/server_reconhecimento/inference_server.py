@@ -8,6 +8,25 @@ app = Flask(__name__)
 # model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 model = torch.hub.load('ultralytics/yolov5', 'custom', path="best.pt")
 
+valid_objects = [
+        "master_chef_can",
+        "cracker_box",
+        "sugar_box",
+        "tomato_soup_can",
+        "mustard_bottle",
+        "tuna_fish_can",
+        "pudding_box",
+        "gelatin_box",
+        "potted_meat_can",
+        "banana",
+        "strawberry",
+        "apple",
+        "lemon",
+        "peach",
+        "pear",
+        "orange"
+]
+
 @app.post("/detect_objs")
 def classify():
     if request.is_json:
@@ -28,10 +47,11 @@ def classify():
         obj_pos = {}
         result_list = results.pred[0].tolist()
         for name, result in zip(object_names, result_list):
-            if name not in obj_pos:
-                obj_pos[name] = [result[:-1]]
-            else:
-                obj_pos[name].append(result[:-1])
+            if name in valid_objects:
+                if name not in obj_pos:
+                    obj_pos[name] = [result[:-1]]
+                else:
+                    obj_pos[name].append(result[:-1])
 
         results.show()
 
