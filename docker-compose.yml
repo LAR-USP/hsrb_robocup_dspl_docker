@@ -53,7 +53,9 @@ services:
   workspace:
     # env_file:
     #   - .env
-    image: devrt/ros-devcontainer-vscode:melodic-desktop
+    build:
+      context: .
+      dockerfile: Dockerfile
     ipc: host
     security_opt:
       - seccomp:unconfined

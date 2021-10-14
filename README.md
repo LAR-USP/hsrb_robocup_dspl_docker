@@ -47,13 +47,6 @@ $ sudo chmod 755 /usr/local/bin/docker-compose
 Usage
 ------
 
-Please input the following commands to clone this repository.
-
-```sh
-$ git clone --recursive https://github.com/hsr-project/hsrb_robocup_dspl_docker.git
-$ cd hsrb_robocup_dspl_docker
-```
-
 Download all of the images necessary for running the simulator.
 As you will be downloading a large amount of data,
 please execute the following command in an environment that is connected to a high speed network.
@@ -68,7 +61,7 @@ Starting the simulator
 Please input the following command and start the simulator.
 
 ```sh
-$ docker-compose up
+$ docker-compose up --build
 ```
 
 Please open each of the following URLs in a browser, then move on to development.
@@ -77,27 +70,6 @@ Please open each of the following URLs in a browser, then move on to development
 - IDE http://localhost:3001
 - jupyter notebook http://localhost:3002
 
-Starting the simulator in an environment with a GPU
----------------------------------------------------
-
-If it is the case that there is an NVIDIA video card, then acceleration of the simulation through rendering on the GPU is possible.
-
-First, please install nvidia-docker by referring to the following URL:
-
-https://github.com/NVIDIA/nvidia-docker
-
-Next, perform rendering on display number 0 of the X server that was started up on the server.
-Please input the following command, to to give access from within docker to the X server.
-
-```sh
-$ DISPLAY=:0 xhost si:localuser:root
-```
-
-Please input the following command and start the simulator.
-
-```sh
-$ docker-compose -f docker-compose.nvidia.yml up
-```
 
 Please open each of the following URLs in a browser, then move on to development.
 
