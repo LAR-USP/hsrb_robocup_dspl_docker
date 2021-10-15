@@ -13,6 +13,7 @@ import subprocess
 import tf
 import tf2_ros
 import time
+import tf2_geometry_msgs
 
 from geometry_msgs.msg import PoseStamped, Quaternion, TransformStamped, Twist
 from IPython.display import Image
@@ -172,13 +173,12 @@ def get_relative_coordinate(parent, child):
 
     return trans.transform
 
-
+scene = moveit_commander.PlanningSceneInterface()
 # moveitでの制御対象として全身制御を指定
 whole_body = moveit_commander.MoveGroupCommander("whole_body_light")
 # whole_body = moveit_commander.MoveGroupCommander("whole_body_weighted")
 whole_body.allow_replanning(True)
 whole_body.set_workspace([-3.0, -3.0, 3.0, 3.0])
-
 
 # moveitでの制御対象としてアームを指定
 arm = moveit_commander.MoveGroupCommander('arm')
@@ -204,7 +204,7 @@ def move_wholebody_ik(x, y, z, roll, pitch, yaw):
     p = PoseStamped()
 
     # "map"座標を基準座標に指定
-    p.header.frame_id = "/map"
+    p.header.frame_id = "map"
 
     # エンドエフェクタの目標位置姿勢のx,y,z座標をセットします
     p.pose.position.x = x
@@ -364,7 +364,6 @@ class RGBD():
     def _cloud_cb(self, msg):
         # ポイントクラウドを取得する
         self._points_data = ros_numpy.numpify(msg)
-
         # 画像を取得する
         self._image_data = \
             self._points_data['rgb'].view((np.uint8, 4))[..., [2, 1, 0]]

@@ -2,7 +2,12 @@
 
 <launch>
   <!-- ******* SEED ********* -->
-  <!-- <arg name="seed" default="46" /> -->
+  <!-- <arg name="seed" default="290" />
+  <arg name="seed" default="449" />
+  <arg name="seed" default="535" />
+  <arg name="seed" default="478" />
+  <arg name="seed" default="375" />
+  <arg name="seed" default="46" /> -->
   <arg name="seed" default="46" />
   <!-- ********************** -->
   <arg name="namespace" default="hsrb"/>
