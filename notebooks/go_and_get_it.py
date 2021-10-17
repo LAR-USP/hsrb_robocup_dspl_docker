@@ -130,11 +130,11 @@ def init_moveit_collisions():
         box_pose.pose.orientation.y = 0.0
         box_pose.pose.orientation.z = 0.0
         box_pose.pose.orientation.w = 1.0
-        box_pose.pose.position.x = 2.35
+        box_pose.pose.position.x = 2.35 
         box_pose.pose.position.y = 4.65
-        box_pose.pose.position.z = 0.5 + i*0.3
+        box_pose.pose.position.z = 0.4 + i*0.3
         box_name = "box"+str(i)
-        scene.add_box(box_name, box_pose, size=(0.8, 0.30, 0.01))
+        scene.add_box(box_name, box_pose, size=(0.8, 0.3, 0.01))
         rospy.sleep(0.1)
     for i in range(2):
         box_pose = tf2_geometry_msgs.PoseStamped()
@@ -147,7 +147,7 @@ def init_moveit_collisions():
         box_pose.pose.position.y = 4.65
         box_pose.pose.position.z = 0.8
         box_name = "box"+str(i+3)
-        scene.add_box(box_name, box_pose, size=( 0.01, 0.30, 0.8))
+        scene.add_box(box_name, box_pose, size=( 0.01, 0.3, 0.8))
         rospy.sleep(0.1)
     if len(scene.get_known_object_names()) == 5:
         print("All collision boxes added")
@@ -224,7 +224,12 @@ def main():
     move_wholebody_ik(starting_wp[0], starting_wp[1], starting_wp[2], -90, 0, -90)
     move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
     move_hand(1)
-    move_wholebody_ik(x, y, z, -90, 0, -90)
+    if not move_wholebody_ik(x, y, z, -90, 0, -90):
+        print("Falha ao pegar objeto. Tentando com offset maior")
+        y -= 0.05
+        if not move_wholebody_ik(x, y, z, -90, 0, -90):
+            print("Falha. Abortando.")
+        
     move_hand(0)
     move_wholebody_ik(wp2[0], wp2[1], wp2[2], -90, 0, -90)
     move_wholebody_ik(wp1[0], wp1[1], wp1[2], -90, 0, -90)
